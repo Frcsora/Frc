@@ -14,11 +14,11 @@ public class Juego1 {
         String nombre1=sc.nextLine();
         System.out.print("Jugador 2 escribe tu nombre: ");
         String nombre2=sc.nextLine();
-        int marcador1=0;   
-        int marcador2=0;
+        int marcador1 = 0;   
+        int marcador2 = 0;
         do{
             /*La variable turnos marcará cuantos turnos durará la partida*/
-            int turnos = (int)(Math.random() * 20 + 1);
+            int turnos = random(20);
 
             /*Inicializo la variable i en 0 para que permitiese como mínimo jugar
             1 turno*/
@@ -35,7 +35,7 @@ public class Juego1 {
                 que en un principio lo cree fuera y luego eso dio problemas
                 porque no canmbiaba aunque se acertase*/
                 
-                int numSecret = (int)(Math.random() * 100 + 1);
+                int numSecret = random(100);
                 
                 /*Aquí es donde se va a llevar a cabo el juego, solo se sale
                 acertando o cuando explota*/
@@ -131,5 +131,10 @@ public class Juego1 {
         System.out.println(nombre1+": "+marcador1);
         System.out.println(nombre2+": "+marcador2);
     }
+    public static int random(int x){
+        return (int)(Math.random() * x + 1);
+    }
+    
+    
 }
-/*Tareas*/
+/*Tareas:    int numSecret = (int)(Math.random() * 100 + 1);*/
