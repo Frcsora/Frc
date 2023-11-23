@@ -6,8 +6,6 @@ public class Juego1 {
 
     public static void main(String[] args) {
         boolean on=true;
-        /*Este bucle do-while nos permitirá mantener abierto el juego 
-        e iniciar nuevas partidas*/
         Scanner sc = new Scanner(System.in);
         boolean jugador1 = true;
         System.out.print("Jugador 1 escribe tu nombre: ");
@@ -16,6 +14,8 @@ public class Juego1 {
         String nombre2=sc.nextLine();
         int marcador1 = 0;   
         int marcador2 = 0;
+        /*Este bucle do-while nos permitirá mantener abierto el juego 
+        e iniciar nuevas partidas*/
         do{
             /*La variable turnos marcará cuantos turnos durará la partida*/
             int turnos = random(20);
@@ -24,7 +24,7 @@ public class Juego1 {
             1 turno*/
             
             marcador(nombre1, nombre2, marcador1, marcador2);
-            for(int i=0; i<turnos; i++){
+            for(int i = 0; i < turnos; ){
                 if(jugador1){
                     System.out.println("Turno de "+nombre1);
                 }
@@ -41,7 +41,8 @@ public class Juego1 {
                 acertando o cuando explota*/
                 System.out.println("Adivina el numero entre 1 i 100");              
                 int resposta;
-                
+                /*Con el siguiente do... while nos aseguramos de que el numero
+                introducido es un int*/
                 do {
                     System.out.println("Introduce un numero:");
                     while (!sc.hasNextInt()) {
@@ -68,15 +69,15 @@ public class Juego1 {
                         }
                         resposta = sc.nextInt();
                     } while (!validacion(resposta));
-                                        
-                  /*System.out.println(numSecret);*/
+                      
                     i++;
                     if(resposta == numSecret){
                         System.out.println("CORRECTO!!");
                     }
                 }
+                
                 if(resposta!=numSecret){
-                    System.out.println("El numero era "+numSecret);
+                    System.out.println("El numero era " + numSecret);
                 }
                 
                 /*Si la respuesta se ha acertado se cambia el turno del jugador*/
@@ -90,7 +91,6 @@ public class Juego1 {
                         jugador1=true;
                     }
                 }
-                i--;
             }
             /*Se menciona al ganador*/
             if(jugador1)
@@ -105,7 +105,7 @@ public class Juego1 {
                 marcador1++;
             }
             /*Repetición del juego o salida*/
-            /*String a="";
+            String a="";
             while(!"S".equals(a) && !"N".equals(a)){
                 a = sc.nextLine().toUpperCase();
                 if((!"S".equals(a) && !"N".equals(a))){
@@ -115,12 +115,12 @@ public class Juego1 {
             if("N".equals(a)){
                 on=false;
                 marcador(nombre1, nombre2, marcador1, marcador2);
-            } */
-            if(marcador1==3||marcador2==3){
+            } 
+            /*if(marcador1==3||marcador2==3){
                 marcador(nombre1, nombre2, marcador1, marcador2);
-            }
+            }*/
             
-        }while(marcador1<3 && marcador2<3);
+        }while(on);/*while(marcador1<3 && marcador2<3);*/
     }  
     public static boolean validacion(Object resposta){     
         
@@ -133,8 +133,5 @@ public class Juego1 {
     }
     public static int random(int x){
         return (int)(Math.random() * x + 1);
-    }
-    
-    
+    }   
 }
-/*Tareas:    int numSecret = (int)(Math.random() * 100 + 1);*/
