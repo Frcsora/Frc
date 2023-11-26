@@ -33,12 +33,12 @@ public class Juego1 {
     }  
    
     static void salida(){
-        while(!"S".equals(a) && !"N".equals(a)){
+        do{
                 a = sc.nextLine().toUpperCase();
                 if((!"S".equals(a) && !"N".equals(a))){
                     System.out.println("Quieres jugar otra partida? S/N: ");
                 }
-            }
+            }while(!"S".equals(a) && !"N".equals(a));
             if("N".equals(a)){
                 on=false;
                 marcador();
@@ -78,7 +78,7 @@ public class Juego1 {
 
     static void juego(){
         int turnos = random(20);
-        for(  ; turnos > 0; ){
+        while(turnos > 0){
 
                 if(jugador1){
                     System.out.println("Turno de "+nombre1);
