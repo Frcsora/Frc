@@ -10,6 +10,7 @@ public class Juego1 {
     static int marcador2 = 0;
     static int resposta;
     static int numSecret;
+    static int turnos;
     static boolean jugador1 = true;
     static boolean on = true;
     static String nombre1;
@@ -34,7 +35,6 @@ public class Juego1 {
     }  
    
     static boolean validacion(Object resposta){     
-        
         return resposta instanceof Integer;
     }
     
@@ -52,16 +52,47 @@ public class Juego1 {
         System.out.println(nombre1+": "+marcador1);
         System.out.println(nombre2+": "+marcador2);
     }
+    static void validaint(){
+        /*Con el siguiente do... while nos aseguramos de que el numero
+            introducido es un int*/
+        do {
+            System.out.println("Introduce un numero:");
+            while (!sc.hasNextInt()) {
+                System.out.println("Por favor, introduce un numero valido.");
+                sc.next();  
+            }
+            resposta = sc.nextInt();
+        } while (!validacion(resposta));
+    }
+    static void buclejuego(){
+        System.out.println("Adivina el numero entre 1 i 100"); 
+        while(turnos > 0 && resposta != numSecret){
+            turnos--;
+            if(resposta < numSecret){
+                System.out.println("MAS!!");
+            }
+            else{
+                System.out.println("MENOS!!");
+            }
+                
+            validaint();
+            
+                
+            if(resposta == numSecret){
+                System.out.println("CORRECTO!!");
+            }
+        }
+    }
 
     static void juego(){
-        int turnos = random(20);
+        turnos = random(20);
         while(turnos > 0){
 
             if(jugador1){
-                System.out.println("Turno de "+nombre1);
+                System.out.println("Turno de " + nombre1);
             }
             else{
-                System.out.println("Turno de "+nombre2);
+                System.out.println("Turno de " + nombre2);
             }
             /*Creo otro número secreto esta vez dentro del bucle, ya
             que en un principio lo cree fuera y luego eso dio problemas
@@ -70,42 +101,11 @@ public class Juego1 {
             numSecret = random(100);
                
             /*Aquí es donde se va a llevar a cabo el juego, solo se sale
-            acertando o cuando explota*/
-            System.out.println("Adivina el numero entre 1 i 100");              
+            acertando o cuando explota*/         
                 
-            /*Con el siguiente do... while nos aseguramos de que el numero
-            introducido es un int*/
-            do {
-                System.out.println("Introduce un numero:");
-                while (!sc.hasNextInt()) {
-                    System.out.println("Por favor, introduce un numero valido.");
-                    sc.next();  
-                }
-                resposta = sc.nextInt();
-            } while (!validacion(resposta));
+            validaint();
                                
-            while(turnos > 0 && resposta != numSecret){
-                if(resposta < numSecret){
-                    System.out.println("MAS!!");
-                }
-                else{
-                    System.out.println("MENOS!!");
-                }
-                    
-                do {
-                    System.out.println("Introduce un numero:");
-                    while (!sc.hasNextInt()) {
-                        System.out.println("Por favor, introduce un numero valido.");
-                        sc.next();
-                    }
-                    resposta = sc.nextInt();
-                } while (!validacion(resposta));
-                turnos--;
-                    
-                if(resposta == numSecret){
-                    System.out.println("CORRECTO!!");
-                }
-            }
+            buclejuego();
                 
             if(resposta!=numSecret){
                 System.out.println("El numero era " + numSecret);
@@ -139,14 +139,14 @@ public class Juego1 {
     }
     static void salida(){
         do{
-                a = sc.nextLine().toUpperCase();
-                if((!"S".equals(a) && !"N".equals(a))){
-                    System.out.println("Quieres jugar otra partida? S/N: ");
-                }
-            }while(!"S".equals(a) && !"N".equals(a));
-            if("N".equals(a)){
-                on=false;
-                marcador();
-            } 
+            a = sc.nextLine().toUpperCase();
+            if((!"S".equals(a) && !"N".equals(a))){
+                System.out.println("Quieres jugar otra partida? S/N: ");
+            }
+        }while(!"S".equals(a) && !"N".equals(a));
+        if("N".equals(a)){
+            on=false;
+            marcador();
+        } 
     }
 }
