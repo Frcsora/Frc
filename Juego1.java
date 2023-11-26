@@ -2,6 +2,7 @@ package juego1;
 
 import java.util.Scanner;
 
+/*Patata caliente © 2023 by Francesc Sorà Quevedo is licensed under CC BY-SA 4.0 */
 public class Juego1 {
 
     static Scanner sc = new Scanner(System.in);
