@@ -4,27 +4,82 @@ import java.util.Scanner;
 
 public class Juego1 {
 
+    static Scanner sc = new Scanner(System.in);
+    static int marcador1 = 0;
+    static int marcador2 = 0;
+    static int resposta;
+    static int numSecret;
+    static boolean jugador1 = true;
+    static boolean on = true;
+    static String nombre1;
+    static String nombre2;
+    static String a = "";
+   
     public static void main(String[] args) {
-        boolean on=true;
-        Scanner sc = new Scanner(System.in);
-        boolean jugador1 = true;
-        System.out.print("Jugador 1 escribe tu nombre: ");
-        String nombre1=sc.nextLine();
-        System.out.print("Jugador 2 escribe tu nombre: ");
-        String nombre2=sc.nextLine();
-        int marcador1 = 0;   
-        int marcador2 = 0;
+        /*Se piden los nombres*/
+        entrada();
         /*Este bucle do-while nos permitirá mantener abierto el juego 
         e iniciar nuevas partidas*/
         do{
-            /*La variable turnos marcará cuantos turnos durará la partida*/
-            int turnos = random(20);
+            /*Se muestra el marcador*/
+            marcador();
+            /*Se ejecuta el bucle principal del juego*/
+            juego();
+            /*Se menciona al ganador*/
+            ganador();      
+            /*Repetición del juego o salida*/
+            salida();
+        }while(on);
+    }  
+   
+    static void salida(){
+        while(!"S".equals(a) && !"N".equals(a)){
+                a = sc.nextLine().toUpperCase();
+                if((!"S".equals(a) && !"N".equals(a))){
+                    System.out.println("Quieres jugar otra partida? S/N: ");
+                }
+            }
+            if("N".equals(a)){
+                on=false;
+                marcador();
+            } 
+    }
+    static void entrada(){
+        System.out.print("Jugador 1 escribe tu nombre: ");
+        nombre1=sc.nextLine();
+        System.out.print("Jugador 2 escribe tu nombre: " );
+        nombre2=sc.nextLine();
+    }
+    static void ganador(){
+        if(jugador1)
+            {
+                System.out.println("BOOM!");
+                System.out.println("Gana " + nombre2);
+                marcador2++;
+            }
+            else{
+                System.out.println("BOOM!");
+                System.out.println("Gana " + nombre1);
+                marcador1++;
+            }
+    }
+    public static boolean validacion(Object resposta){     
+        
+        return resposta instanceof Integer;
+    }
+    public static void marcador(){
+        System.out.println("Marcador:");
+        System.out.println(nombre1+": "+marcador1);
+        System.out.println(nombre2+": "+marcador2);
+    }
+    public static int random(int x){
+        return (int)(Math.random() * x + 1);
+    }   
 
-            /*Inicializo la variable i en 0 para que permitiese como mínimo jugar
-            1 turno*/
-            
-            marcador(nombre1, nombre2, marcador1, marcador2);
-            for(int i = 0; i < turnos; ){
+    static void juego(){
+        int turnos = random(20);
+        for(  ; turnos > 0; ){
+
                 if(jugador1){
                     System.out.println("Turno de "+nombre1);
                 }
@@ -35,12 +90,12 @@ public class Juego1 {
                 que en un principio lo cree fuera y luego eso dio problemas
                 porque no canmbiaba aunque se acertase*/
                 
-                int numSecret = random(100);
+                numSecret = random(100);
                 
                 /*Aquí es donde se va a llevar a cabo el juego, solo se sale
                 acertando o cuando explota*/
                 System.out.println("Adivina el numero entre 1 i 100");              
-                int resposta;
+                
                 /*Con el siguiente do... while nos aseguramos de que el numero
                 introducido es un int*/
                 do {
@@ -53,7 +108,7 @@ public class Juego1 {
                 } while (!validacion(resposta));
                                 
                 /*System.out.println(numSecret);*/
-                while(i < turnos && resposta != numSecret){
+                while(turnos > 0 && resposta != numSecret){
                     if(resposta < numSecret){
                         System.out.println("MAS!!");
                     }
@@ -69,8 +124,8 @@ public class Juego1 {
                         }
                         resposta = sc.nextInt();
                     } while (!validacion(resposta));
-                      
-                    i++;
+                    turnos--;
+                    
                     if(resposta == numSecret){
                         System.out.println("CORRECTO!!");
                     }
@@ -91,47 +146,7 @@ public class Juego1 {
                         jugador1=true;
                     }
                 }
+
             }
-            /*Se menciona al ganador*/
-            if(jugador1)
-            {
-                System.out.println("BOOM!");
-                System.out.println("Gana " + nombre2);
-                marcador2++;
-            }
-            else{
-                System.out.println("¡BOOM!");
-                System.out.println("Gana " + nombre1);
-                marcador1++;
-            }
-            /*Repetición del juego o salida*/
-            String a="";
-            while(!"S".equals(a) && !"N".equals(a)){
-                a = sc.nextLine().toUpperCase();
-                if((!"S".equals(a) && !"N".equals(a))){
-                    System.out.println("Quieres jugar otra partida? S/N: ");
-                }
-            }
-            if("N".equals(a)){
-                on=false;
-                marcador(nombre1, nombre2, marcador1, marcador2);
-            } 
-            /*if(marcador1==3||marcador2==3){
-                marcador(nombre1, nombre2, marcador1, marcador2);
-            }*/
-            
-        }while(on);/*while(marcador1<3 && marcador2<3);*/
-    }  
-    public static boolean validacion(Object resposta){     
-        
-        return resposta instanceof Integer;
     }
-    public static void marcador(String nombre1, String nombre2, int marcador1, int marcador2){
-        System.out.println("Marcador:");
-        System.out.println(nombre1+": "+marcador1);
-        System.out.println(nombre2+": "+marcador2);
-    }
-    public static int random(int x){
-        return (int)(Math.random() * x + 1);
-    }   
 }
