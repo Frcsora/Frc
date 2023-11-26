@@ -73,17 +73,13 @@ public class Juego1 {
             }
             else{
                 System.out.println("MENOS!!");
-            }
-                
+            }  
             validaint();
-            
-                
             if(resposta == numSecret){
                 System.out.println("CORRECTO!!");
             }
         }
     }
-
     static void juego(){
         turnos = random(20);
         while(turnos > 0){
@@ -97,16 +93,11 @@ public class Juego1 {
             /*Creo otro número secreto esta vez dentro del bucle, ya
             que en un principio lo cree fuera y luego eso dio problemas
             porque no canmbiaba aunque se acertase*/
-            
             numSecret = random(100);
-               
             /*Aquí es donde se va a llevar a cabo el juego, solo se sale
             acertando o cuando explota*/         
-                
-            validaint();
-                               
+            validaint();                  
             buclejuego();
-                
             if(resposta!=numSecret){
                 System.out.println("El numero era " + numSecret);
             }
